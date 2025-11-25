@@ -151,7 +151,6 @@ async def info(
     embed.add_field(name="Owner", value=server.owner, inline=False)
     embed.add_field(name="Member", value=server.member_count, inline=False)
     embed.add_field(name="Description", value=server.description, inline=False)
-
     
     embed.add_field(name="Server ID", value=server.id)
 
@@ -159,9 +158,6 @@ async def info(
     embed.set_footer(text="World Wide Modding - Bot | Made by BaumSplitter41")
 
     await ctx.respond(embed=embed)
-
-
-
 #---------------------------------#
 
 
