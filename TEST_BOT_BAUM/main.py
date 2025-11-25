@@ -126,6 +126,7 @@ async def info(
     embed.add_field(name="User ID", value=user.id)
 
     embed.set_thumbnail(url=user.display_avatar.url)
+    embed.set_author(name="World Wide Modding - BaumSplitter41", icon_url="https://i.lcpdfrusercontent.com/uploads/monthly_2022_04/756701490_woldwidemodding.thumb.jpg.00bc1f61c05cc6d24519e1dda202d741.jpg")
     embed.set_footer(text="World Wide Modding - Bot | Made by BaumSplitter41")
 
     await ctx.respond(embed=embed)
@@ -147,7 +148,6 @@ async def info(
     time = discord.utils.format_dt(server.created_at, "R")
 
     embed.add_field(name="Server creation date", value=time, inline=False)
-    
     embed.add_field(name="Owner", value=server.owner, inline=False)
     embed.add_field(name="Member", value=server.member_count, inline=False)
     embed.add_field(name="Description", value=server.description, inline=False)
@@ -155,6 +155,7 @@ async def info(
     embed.add_field(name="Server ID", value=server.id)
 
     embed.set_thumbnail(url=server.icon)
+    embed.set_author(name="World Wide Modding - BaumSplitter41", icon_url="https://i.lcpdfrusercontent.com/uploads/monthly_2022_04/756701490_woldwidemodding.thumb.jpg.00bc1f61c05cc6d24519e1dda202d741.jpg")
     embed.set_footer(text="World Wide Modding - Bot | Made by BaumSplitter41")
 
     await ctx.respond(embed=embed)
