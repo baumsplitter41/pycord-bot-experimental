@@ -126,7 +126,7 @@ async def info(
     embed.add_field(name="User ID", value=user.id)
 
     embed.set_thumbnail(url=user.display_avatar.url)
-    embed.set_author(name="World Wide Modding - BaumSplitter41", icon_url="https://i.lcpdfrusercontent.com/uploads/monthly_2022_04/756701490_woldwidemodding.thumb.jpg.00bc1f61c05cc6d24519e1dda202d741.jpg")
+    embed.set_author(name="World Wide Modding", icon_url="https://i.lcpdfrusercontent.com/uploads/monthly_2022_04/756701490_woldwidemodding.thumb.jpg.00bc1f61c05cc6d24519e1dda202d741.jpg")
     embed.set_footer(text="World Wide Modding - Bot | Made by BaumSplitter41")
 
     await ctx.respond(embed=embed)
@@ -155,7 +155,7 @@ async def info(
     embed.add_field(name="Server ID", value=server.id)
 
     embed.set_thumbnail(url=server.icon)
-    embed.set_author(name="World Wide Modding - BaumSplitter41", icon_url="https://i.lcpdfrusercontent.com/uploads/monthly_2022_04/756701490_woldwidemodding.thumb.jpg.00bc1f61c05cc6d24519e1dda202d741.jpg")
+    embed.set_author(name="World Wide Modding", icon_url="https://i.lcpdfrusercontent.com/uploads/monthly_2022_04/756701490_woldwidemodding.thumb.jpg.00bc1f61c05cc6d24519e1dda202d741.jpg")
     embed.set_footer(text="World Wide Modding - Bot | Made by BaumSplitter41")
 
     await ctx.respond(embed=embed)
