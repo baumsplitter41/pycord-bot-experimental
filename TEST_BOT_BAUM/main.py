@@ -144,7 +144,7 @@ async def serverinfo(
     owner = await bot.fetch_user(owner)
     print(owner)
     embed = discord.Embed(
-        title=f"Serverinformations of __{server.name}__",
+        title=f"Information about the server __{server.name}__",
         description=f"Here you see all details about {server.name}",
         color=discord.Color.blue()
     )
