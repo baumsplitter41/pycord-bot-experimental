@@ -187,12 +187,13 @@ async def ban(
     channel= discord.utils.get(ctx.guild.channels, id = int(1447580463668400305))
 
     embed = discord.Embed(
-        title=f"Ban of {user.name}",
+        title=f"Ban of **{user.name}**",
+        description=f"User {user.mention} has been banned from the Server",
         color=discord.Color.red()
     )
     time = discord.utils.format_dt(datetime.now(), "f")
     embed.add_field(name="Ban Date", value=time, inline=False)
-    embed.add_field(name="Moderator", value=ctx.author, inline=False)
+    embed.add_field(name="Moderator", value=f"{ctx.author}", inline=False)
     embed.add_field(name="Reason", value=reason, inline=False)
 
     embed.add_field(name="User ID", value=user.id)
