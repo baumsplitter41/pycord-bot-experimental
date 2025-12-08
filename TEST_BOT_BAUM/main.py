@@ -140,6 +140,9 @@ async def serverinfo(
     ctx,
 ):
     server = ctx.guild
+    owner = server.owner_id
+    owner = await bot.fetch_user(owner)
+    print(owner)
     embed = discord.Embed(
         title=f"Serverinformations of __{server.name}__",
         description=f"Here you see all details about {server.name}",
@@ -149,7 +152,7 @@ async def serverinfo(
     time = discord.utils.format_dt(server.created_at, "R")
 
     embed.add_field(name="Server creation date", value=time, inline=False)
-    embed.add_field(name="Owner", value=server.owner, inline=False)
+    embed.add_field(name="Owner", value=owner.mention, inline=False)
     embed.add_field(name="Member", value=server.member_count, inline=False)
     embed.add_field(name="Description", value=server.description, inline=False)
     
@@ -166,16 +169,14 @@ async def serverinfo(
 @bot.slash_command(name="ban", description="Ban a user from this Server")
 async def ban(
     ctx,
-    user: Option(discord.User, description="Select User", required=True),
-    reason: Option(str, description="Reason for the ban", default="No reason provided")
+    user: Option(discord.User, description = "Select User", required=True), # type: ignore
+    reason: Option(str, description = "Reason for the ban", default="No reason provided") # type: ignore
     
 ):
-    # Check permissions
     if not ctx.author.guild_permissions.ban_members:
         await ctx.respond("Error: You don't have the permission to ban Members!", ephemeral=True)
         return
     
-    # Prevent self-ban or bot-ban
     if user == bot.user:
         await ctx.respond("Error: I can't ban myself!", ephemeral=True)
         return
@@ -199,7 +200,8 @@ async def ban(
     embed.add_field(name="User ID", value=user.id)
 
     embed.set_thumbnail(url=user.display_avatar.url)
-    # Attempt the ban
+    embed.set_footer(text="World Wide Modding - Bot | Made by BaumSplitter41")
+
     try:
         await ctx.guild.ban(user, reason=reason)
         await ctx.respond(f"User {user.mention} has been banned from this Server!", ephemeral=True)
