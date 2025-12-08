@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 from discord.commands import Option
 from discord.commands import slash_command
+from datetime import datetime
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -93,7 +94,7 @@ async def say(
 #---------------------------------#
 ## Userinfo
 @bot.slash_command(name="userinfo", description="Show informations of a user from this server")
-async def info(
+async def userinfo(
         ctx,
         user: str = Option(discord.User, "Select User"),
     ):
@@ -135,7 +136,7 @@ async def info(
 #---------------------------------#
 ## Serverinfo
 @bot.slash_command(name="serverinfo", description = "Show Informations to this Server")
-async def info(
+async def serverinfo(
     ctx,
 ):
     server = ctx.guild
@@ -160,6 +161,55 @@ async def info(
 
     await ctx.respond(embed=embed)
 #---------------------------------#
+##Ban System
+
+@bot.slash_command(name="ban", description="Ban a user from this Server")
+async def ban(
+    ctx,
+    user: Option(discord.User, description="Select User", required=True),
+    reason: Option(str, description="Reason for the ban", default="No reason provided")
+    
+):
+    # Check permissions
+    if not ctx.author.guild_permissions.ban_members:
+        await ctx.respond("Error: You don't have the permission to ban Members!", ephemeral=True)
+        return
+    
+    # Prevent self-ban or bot-ban
+    if user == bot.user:
+        await ctx.respond("Error: I can't ban myself!", ephemeral=True)
+        return
+    if user == ctx.author:
+        await ctx.respond("Error: You can't ban yourself!", ephemeral=True)
+        return
+    
+    #logging in #ban-logs on VicePD
+    channel= discord.utils.get(ctx.guild.channels, id = int(1447580463668400305))
+
+    embed = discord.Embed(
+        title=f"Ban of {user.name}",
+        color=discord.Color.red()
+    )
+    time = discord.utils.format_dt(datetime.now(), "f")
+    embed.add_field(name="Ban Date", value=time, inline=False)
+    embed.add_field(name="Moderator", value=ctx.author, inline=False)
+    embed.add_field(name="Reason", value=reason, inline=False)
+
+    embed.add_field(name="User ID", value=user.id)
+
+    embed.set_thumbnail(url=user.display_avatar.url)
+    # Attempt the ban
+    try:
+        await ctx.guild.ban(user, reason=reason)
+        await ctx.respond(f"User {user.mention} has been banned from this Server!", ephemeral=True)
+        await channel.send(embed=embed)
+
+    except discord.Forbidden:
+        await ctx.respond("Error: I don't have permission to ban this user.", ephemeral=True)
+    except discord.HTTPException as e:
+        await ctx.respond(f"Error: Could not ban User {user.mention}. Reason: {e}", ephemeral=True)
+    except Exception as e:
+        await ctx.respond(f"Unexpected error: {e}", ephemeral=True)
 
 
 
